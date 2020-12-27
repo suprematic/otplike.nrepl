@@ -1,0 +1,4 @@
+{:description "nREPL Server"
+ :namespaces  [otplike.nrepl]
+ :start-fn otplike.nrepl/start
+ :environment {:port 0 :bind "127.0.0.1"}}

@@ -1,0 +1,30 @@
+{:paths ["src"]
+ :deps
+ {nrepl/nrepl
+  {:mvn/version "0.5.3"}
+
+  otplike/otplike
+  {:mvn/version "0.7.0-SNAPSHOT"}}
+
+ :aliases
+ {:jar
+  {:replace-deps
+   {seancorfield/depstar
+    {:mvn/version "2.0.165"}}
+   :exec-fn hf.depstar/jar
+   :exec-args
+   {:jar "target/otplike.nrepl.jar"
+    :repro true
+    :sync-pom true
+    :group-id "otplike"
+    :artifact-id "otplike.nrepl"
+    :version "0.1.0-SNAPSHOT"}}
+
+  :deploy
+  {:replace-deps
+   {slipset/deps-deploy
+    {:mvn/version "RELEASE"}}
+   :exec-fn deps-deploy.deps-deploy/deploy
+   :exec-args
+   {:installer :remote
+    :artifact "target/otplike.nrepl.jar"}}}}
