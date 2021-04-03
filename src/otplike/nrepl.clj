@@ -22,7 +22,13 @@
         (when (= port' 0)
           (spit "nrepl-port" port))
 
-        (log/info "nREPL server started: uri=~{scheme}://~{host}:~{port}" :scheme scheme :host host :port port))
+        (log/info
+          {:what :start
+           :log :trace
+           :details
+           {:scheme scheme
+            :host host
+            :port port}}))
       nrepl)}])
 
 (defn handle-info [_ state]
@@ -30,7 +36,9 @@
 
 (defn terminate [_reason {:keys [nrepl]}]
   (nrepl/stop-server nrepl)
-  (log/info "nREPL server terminated"))
+  (log/info
+    {:what :stop
+     :log :event}))
 
 (defn start-link [port bind]
   (gs/start-link-ns ::nrepl [port bind] {}))
